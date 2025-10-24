@@ -1,6 +1,6 @@
 import User from "@/models/User";
 import { connectDB } from "@/lib/db";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export async function POST(request){
@@ -18,7 +18,7 @@ export async function POST(request){
     });
 
     await newUser.save();
-    return NextResponse.json({ message: "User registered successfully" }, { status: 201 });
+    return NextResponse.json({ message: "User registered successfully", newUser }, { status: 201 });
   } catch (err) {
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
