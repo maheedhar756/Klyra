@@ -8,6 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@nestjs/axios": "^4.0.1",
+    "@next/env": "^16.0.0",
+    "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/jsonwebtoken": "^9.0.10",
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",

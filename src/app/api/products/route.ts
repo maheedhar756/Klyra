@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import Product from "@/models/Product";
-import { isAdmin } from "@/lib/auth";
-import { connectDB } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+import Product from "../../../models/Product";
+import { isAdmin } from "../../../lib/auth";
+import { connectDB } from "../../../lib/db";
 
 export async function GET(){
   try {
@@ -9,11 +9,12 @@ export async function GET(){
     const products = await Product.find();
     return NextResponse.json({ products });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   try {
     if (!isAdmin()) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -24,6 +25,7 @@ export async function POST(req) {
     await newProduct.save();
     return NextResponse.json({ message: "Product created successfully" }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
