@@ -1,6 +1,12 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { UserType } from "../types/auth.types";
+
+interface UserType {
+  _id: string;
+  name: string;
+  email: string;
+  role?: string;
+}
 
 export function createToken(user : UserType){
   const secret = process.env.JWT_SECRET;

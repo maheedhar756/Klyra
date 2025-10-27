@@ -20,8 +20,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const token = jwt.sign({ id: user._id.toString() }, secret, { expiresIn: "7d" });
 
-    const res = NextResponse.json({ message: "Login successful", user}, { status: 200 });
-    res.cookies.set("token", token, { httpOnly: true, path: "/", sameSite: "lax" })
+    const payloader = { id: user._id.toString(), email: user.email }
+    const res = NextResponse.json({ message: "Login successful", user: payloader, token }, { status: 200 });
+    res.cookies.set("token", token, { httpOnly: true, path: "/", sameSite: "lax", secure: process.env.NODE_ENV === "production" });
 
     return res
   } catch (error : unknown) {

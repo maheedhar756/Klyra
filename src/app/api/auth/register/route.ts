@@ -2,7 +2,12 @@ import { connectDB } from "../../../../lib/db";
 import User from "../../../../models/User";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import { RegisterPayload } from "../../../../types/auth.types";
+
+interface RegisterPayload {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export async function POST(request : Request) {
   try {
@@ -25,3 +30,5 @@ export async function POST(request : Request) {
     return NextResponse.json({ message }, { status: 500 });
   }
 }
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZmVlZmY4ZTcwNDBkNGU2ZWEyMjMyYiIsImlhdCI6MTc2MTUzODY0MywiZXhwIjoxNzYyMTQzNDQzfQ.e1-mKRr3CuQCTNRIQI1fJDa9pBGqrVVGvAQwNyn3nz8

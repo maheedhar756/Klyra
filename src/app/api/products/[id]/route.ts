@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/db";
-import { isAdmin } from "@/lib/auth";
-import Product from "@/models/Product";
+import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "../../../../lib/db";
+import { isAdmin } from "../../../../lib/auth";
+import Product from "../../../../models/Product";
 
-export async function GET(_, { params }){
+export async function GET(req: NextRequest, { params }: { params: { id: string } }){
   try {
     await connectDB();
     const product = await Product.findById(params.id);
@@ -11,11 +11,12 @@ export async function GET(_, { params }){
 
     return NextResponse.json({ product });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500})
+    const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500})
   }
 }
 
-export async function PUT(req, { params }){
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }){
   try {
     if(!isAdmin()){
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
@@ -35,11 +36,12 @@ export async function PUT(req, { params }){
     await product.save();
     return NextResponse.json({ message: "Product updated successfully" }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500})
   }
 }
 
-export async function DELETE(_, { params }) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     if(!isAdmin()){
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
@@ -51,6 +53,7 @@ export async function DELETE(_, { params }) {
 
     return NextResponse.json({ message: "Product deleted successfuly" }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+    return NextResponse.json({ error: errorMessage }, { status: 500})
   }
 }
