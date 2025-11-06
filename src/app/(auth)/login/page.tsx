@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { loginUser } from "../../../services/authService"
+import { signIn } from "next-auth/react"
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,15 +19,18 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
 
-    try {
-      await loginUser(form);
-      router.push("/(shop)");
-    } catch (err: any) {
-      setError(err.message || "Login failed");
-    } finally {
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: form.email,
+      password: form.password,
+    })
+
+    if (res?.error) {
+      setError(res.error)
       setLoading(false);
+    } else {
+      router.push("/")
     }
   };
 
@@ -47,6 +50,7 @@ export default function LoginPage() {
             </label>
             <input 
               type="email"
+              name="email"
               value={form.email}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
@@ -59,6 +63,7 @@ export default function LoginPage() {
             </label>
             <input 
               type="password"
+              name="password"
               value={form.password}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
@@ -72,6 +77,13 @@ export default function LoginPage() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Don't have an account?{" "}
+          <a href="/register" className="text-indigo-600 hover:underline">
+            Sign up
+          </a>
+        </p>
       </div>
     </div>
   )

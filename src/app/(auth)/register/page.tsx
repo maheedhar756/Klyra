@@ -1,7 +1,7 @@
 "use client"
-import React, { useState } from "react"
-import { registerUser } from "../../../services/authService"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
+import axios from "axios"
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -18,11 +18,10 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
     try {
-      await registerUser(form);
-      router.push("/(auth)/login")
+      setLoading(true);
+      const res = await axios.post("/api/auth/register", form)
+      if (res.status === 201) router.push("/(auth)/login")
     } catch (err: any) {
       setError(err.response?.data?.message || "Registration failed");
     } finally {
