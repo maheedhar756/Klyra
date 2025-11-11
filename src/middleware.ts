@@ -2,8 +2,7 @@ import { withAuth } from "next-auth/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 export default withAuth(
-  function middleware(req : NextRequest) {
-
+  function middleware(req: NextRequest) {
     const token = (req as any).nextauth?.token;
     const role = token?.role as string | undefined;
 
@@ -12,7 +11,7 @@ export default withAuth(
     }
 
     if (req.nextUrl.pathname.startsWith("/shop") && !token) {
-      return NextResponse.redirect(new URL("/(auth)/login", req.url));
+      return NextResponse.redirect(new URL("/login", req.url));
     }
 
     return NextResponse.next();

@@ -23,7 +23,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-4">
               <span>+1 234 567 89 00</span>
               <span>|</span>
-              <span>info@allaia.com</span>
+              <span>info@klyra.com</span>
             </div>
             <div className="flex items-center space-x-4">
               {session ? (
@@ -58,7 +58,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold">
-            Allaia
+            Klyra
           </Link>
 
           {/* Desktop Navigation */}

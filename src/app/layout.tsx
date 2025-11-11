@@ -1,6 +1,7 @@
 import "./globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "../components/layouts/Navbar";
+import Footer from "../components/layouts/Footer";
+import NextAuthProvider from "./providers/NextAuthProvider";
 
 
 export const metadata = {
@@ -12,9 +13,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <NextAuthProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </NextAuthProvider>
       </body>
     </html>
   );
