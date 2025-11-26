@@ -4,6 +4,11 @@ import { useState, useEffect } from "react";
 import ProductGrid from "../../../../components/ProductGrid";
 import { FaFilter } from "react-icons/fa";
 import { filterProducts, sortProducts } from "../../../../lib/utils/index";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const sortOptions = [
   { value: "featured", label: "Featured" },
@@ -68,93 +73,141 @@ export default function ShopPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Shop</h1>
-        <button
+        <div>
+          <h1 className="text-3xl font-bold">Shop</h1>
+          <p className="text-muted-foreground mt-1">
+            Discover our collection of premium products
+          </p>
+        </div>
+        <Button
           onClick={() => setShowFilters(!showFilters)}
-          className="lg:hidden flex items-center gap-2 px-4 py-2 border rounded"
+          variant="outline"
+          className="lg:hidden"
         >
-          <FaFilter />
+          <FaFilter className="mr-2 h-4 w-4" />
           Filters
-        </button>
+        </Button>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Sidebar */}
         <aside className={`lg:w-1/4 ${showFilters ? 'block' : 'hidden lg:block'}`}>
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h2 className="text-lg font-semibold mb-4">Filters</h2>
-            
-            {/* Category Filter */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">
-                Category
-              </label>
-              <select
-                name="category"
-                value={filters.category}
-                onChange={handleFilterChange}
-                className="w-full p-2 border rounded"
-              >
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Price Range */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">
-                Price Range
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="number"
-                  name="minPrice"
-                  placeholder="Min"
-                  value={filters.minPrice}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FaFilter className="h-4 w-4" />
+                Filters
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Category Filter */}
+              <div className="space-y-2">
+                <Label htmlFor="category">Category</Label>
+                <select
+                  id="category"
+                  name="category"
+                  value={filters.category}
                   onChange={handleFilterChange}
-                  className="w-1/2 p-2 border rounded"
-                />
-                <input
-                  type="number"
-                  name="maxPrice"
-                  placeholder="Max"
-                  value={filters.maxPrice}
-                  onChange={handleFilterChange}
-                  className="w-1/2 p-2 border rounded"
-                />
+                  className="w-full p-2 border rounded-md"
+                >
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </div>
 
-            {/* Sort */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">
-                Sort By
-              </label>
-              <select
-                name="sort"
-                value={filters.sort}
-                onChange={handleFilterChange}
-                className="w-full p-2 border rounded"
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+              {/* Price Range */}
+              <div className="space-y-2">
+                <Label>Price Range</Label>
+                <div className="flex gap-2">
+                  <Input
+                    type="number"
+                    name="minPrice"
+                    placeholder="Min"
+                    value={filters.minPrice}
+                    onChange={handleFilterChange}
+                  />
+                  <Input
+                    type="number"
+                    name="maxPrice"
+                    placeholder="Max"
+                    value={filters.maxPrice}
+                    onChange={handleFilterChange}
+                  />
+                </div>
+              </div>
+
+              {/* Sort */}
+              <div className="space-y-2">
+                <Label htmlFor="sort">Sort By</Label>
+                <select
+                  id="sort"
+                  name="sort"
+                  value={filters.sort}
+                  onChange={handleFilterChange}
+                  className="w-full p-2 border rounded-md"
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Active Filters */}
+              <div className="pt-4 border-t">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium">Active Filters</span>
+                  {(filters.category !== "All" || filters.minPrice || filters.maxPrice) && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setFilters({
+                        category: "All",
+                        minPrice: "",
+                        maxPrice: "",
+                        sort: "featured",
+                      })}
+                    >
+                      Clear All
+                    </Button>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {filters.category !== "All" && (
+                    <Badge variant="secondary">{filters.category}</Badge>
+                  )}
+                  {filters.minPrice && (
+                    <Badge variant="secondary">Min: ${filters.minPrice}</Badge>
+                  )}
+                  {filters.maxPrice && (
+                    <Badge variant="secondary">Max: ${filters.maxPrice}</Badge>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </aside>
 
         {/* Product Grid */}
         <div className="lg:w-3/4">
           {loading ? (
-            <div className="text-center py-12">Loading...</div>
+            <div className="text-center py-12">
+              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
+              <p className="mt-4 text-muted-foreground">Loading products...</p>
+            </div>
           ) : (
-            <TypedProductGrid products={sortedProducts} />
+            <>
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">
+                  Showing <span className="font-medium">{sortedProducts.length}</span> products
+                </p>
+              </div>
+              <TypedProductGrid products={sortedProducts} />
+            </>
           )}
         </div>
       </div>

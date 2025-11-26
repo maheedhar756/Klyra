@@ -5,8 +5,8 @@ export const content = [
 export const theme = {
   extend: {
     colors: {
-      primary: "#111827", // Dark gray base
-      accent: "#EAB308", // Gold highlight (Klyra brand)
+      primary: "#111827",
+      accent: "#EAB308",
       light: "#F9FAFB",
     },
     fontFamily: {
@@ -14,4 +14,70 @@ export const theme = {
     },
   },
 };
-export const plugins = [];
+export const plugins = [
+  require('daisyui'),
+];
+export const daisyui = {
+  themes: [
+    {
+      klyra: {
+        "primary": "#570df8",
+        "primary-content": "#ffffff",
+        "secondary": "#f000b8",
+        "secondary-content": "#ffffff",
+        "accent": "#37cdbe",
+        "accent-content": "#ffffff",
+        "neutral": "#3d4451",
+        "neutral-content": "#ffffff",
+        "base-100": "#ffffff",
+        "base-200": "#f9fafb",
+        "base-300": "#ced3d9",
+        "base-content": "#1f2937",
+        "info": "#3abff8",
+        "info-content": "#ffffff",
+        "success": "#36d399",
+        "success-content": "#ffffff",
+        "warning": "#fbbd23",
+        "warning-content": "#ffffff",
+        "error": "#f87272",
+        "error-content": "#ffffff",
+      },
+    },
+    "light",
+    "dark",
+    "cupcake",
+    "bumblebee",
+    "emerald",
+    "corporate",
+    "synthwave",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "halloween",
+    "garden",
+    "forest",
+    "aqua",
+    "lofi",
+    "pastel",
+    "fantasy",
+    "wireframe",
+    "black",
+    "luxury",
+    "dracula",
+    "cmyk",
+    "autumn",
+    "business",
+    "acid",
+    "lemonade",
+    "night",
+    "coffee",
+    "winter",
+  ],
+  darkTheme: "dark",
+  base: true,
+  styled: true,
+  utils: true,
+  prefix: "",
+  logs: true,
+  themeRoot: ":root",
+};

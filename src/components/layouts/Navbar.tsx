@@ -6,6 +6,7 @@ import { useSession, signOut } from "next-auth/react";
 import MegaMenu from "../MegaMenu";
 import CartPreview from "./CartPreview";
 import { FaHeart, FaUser, FaBars, FaSearch } from "react-icons/fa";
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -16,42 +17,6 @@ export default function Navbar() {
 
   return (
     <header className="bg-white shadow-md">
-      {/* Top Bar */}
-      <div className="bg-gray-100 py-2">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center space-x-4">
-              <span>+1 234 567 89 00</span>
-              <span>|</span>
-              <span>info@klyra.com</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              {session ? (
-                <>
-                  <Link href="/user/profile" className="hover:text-blue-600">
-                    My Account
-                  </Link>
-                  <button
-                    onClick={() => signOut()}
-                    className="hover:text-blue-600"
-                  >
-                    Sign Out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link href="/auth/login" className="hover:text-blue-600">
-                    Sign In
-                  </Link>
-                  <Link href="/auth/register" className="hover:text-blue-600">
-                    Register
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Main Navigation */}
       <div className="container mx-auto px-4 py-4">
@@ -100,7 +65,10 @@ export default function Navbar() {
                   </button>
                 </div>
               ) : (
-                <Link href="/(auth)/login" className="px-3 py-1 rounded hover:bg-gray-100">Sign in</Link>
+                <>
+                  <Link href="/login" className="px-3 py-1 rounded hover:bg-gray-100">Sign in</Link>
+                  <Link href="/register" className="px-3 py-1 rounded hover:bg-gray-100">Register</Link>
+                </>
               )}
             </div>
 
@@ -154,6 +122,8 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      <ThemeSwitcher />
     </header>
   );
 }
