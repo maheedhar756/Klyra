@@ -9,22 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SHOP_CATEGORIES } from "@/lib/constants";
 
 const sortOptions = [
   { value: "featured", label: "Featured" },
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
   { value: "newest", label: "Newest Arrivals" },
-];
-
-const categories = [
-  "All",
-  "Women's Fashion",
-  "Men's Collection",
-  "Accessories",
-  "Footwear",
-  "Watches",
-  "Jewelry",
 ];
 
 export default function ShopPage() {
@@ -110,7 +101,7 @@ export default function ShopPage() {
                   onChange={handleFilterChange}
                   className="w-full p-2 border rounded-md"
                 >
-                  {categories.map((category) => (
+                  {SHOP_CATEGORIES.map((category) => (
                     <option key={category} value={category}>
                       {category}
                     </option>

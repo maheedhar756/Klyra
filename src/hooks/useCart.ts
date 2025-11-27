@@ -14,14 +14,15 @@ export function useCart() {
         try {
           const response = await fetch("/api/cart");
           const data = await response.json();
-          setItems(data.items);
+          setItems(data.items || []);
         } catch (error) {
           console.error("Error loading cart:", error);
         }
       } else {
         const storedCart = localStorage.getItem("cart");
         if (storedCart) {
-          setItems(JSON.parse(storedCart));
+          const parsed = JSON.parse(storedCart);
+          setItems(Array.isArray(parsed) ? parsed : []);
         }
       }
       setLoading(false);
@@ -41,7 +42,7 @@ export function useCart() {
           body: JSON.stringify(newItem),
         });
         const data = await response.json();
-        setItems(data.items);
+        setItems(data.items || []);
       } catch (error) {
         console.error("Error adding item to cart:", error);
       }
@@ -78,7 +79,7 @@ export function useCart() {
           body: JSON.stringify({ quantity }),
         });
         const data = await response.json();
-        setItems(data.items);
+        setItems(data.items || []);
       } catch (error) {
         console.error("Error updating cart quantity:", error);
       }
@@ -105,8 +106,12 @@ export function useCart() {
     }
   };
 
-  const total = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+  const total = (items || []).reduce(
+    (sum, item) => {
+      const price = parseFloat(String(item.price || 0));
+      const quantity = parseInt(String(item.quantity || 1));
+      return sum + (isNaN(price) ? 0 : price) * (isNaN(quantity) ? 1 : quantity);
+    },
     0
   );
 

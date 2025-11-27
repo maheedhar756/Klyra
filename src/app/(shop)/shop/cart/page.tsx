@@ -9,9 +9,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
+  const router = useRouter();
   const { items, removeItem, updateQuantity, total } = useCart();
+
+  const handleCheckout = () => {
+    if (items.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+    router.push("/checkout");
+  };
 
   if (items.length === 0) {
     return (
@@ -63,7 +74,7 @@ export default function CartPage() {
                   {/* Product Image */}
                   <div className="relative w-24 aspect-square rounded-md overflow-hidden">
                     <Image
-                      src={item.images[0].url}
+                      src={item.images?.[0]?.url || '/placeholder.png'}
                       alt={item.name}
                       fill
                       className="object-cover"
@@ -180,7 +191,7 @@ export default function CartPage() {
               </div>
             </CardContent>
             <CardFooter className="flex-col gap-2">
-              <Button className="w-full" size="lg">
+              <Button className="w-full" size="lg" onClick={handleCheckout}>
                 Proceed to Checkout
               </Button>
               <p className="text-xs text-center text-muted-foreground">

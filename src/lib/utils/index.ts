@@ -7,11 +7,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Price formatting
-export function formatPrice(price: number) {
+export function formatPrice(price: number | string) {
+  const numericPrice = typeof price === "string" ? parseFloat(price) : price;
+  if (isNaN(numericPrice) || numericPrice === null || numericPrice === undefined) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(0);
+  }
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format(price);
+  }).format(numericPrice);
 }
 
 // Date formatting

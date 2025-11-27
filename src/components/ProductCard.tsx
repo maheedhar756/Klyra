@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaShoppingBag, FaEye } from "react-icons/fa";
 import { formatPrice } from "../lib/utils/index";
 import { useCart } from "../hooks/useCart";
 import toast from "react-hot-toast";
@@ -21,62 +21,79 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
     addItem(product, 1);
-    toast.success("Added to cart!");
+    toast.success("Added to cart");
   };
 
-  const handleAddToWishlist = () => {
-    toast.success("Added to wishlist!");
+  const handleAddToWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toast.success("Added to wishlist");
   };
 
   return (
-    <div className="group">
+    <div className="group relative">
       {/* Product Image */}
-      <div className="relative aspect-square mb-4">
+      <div className="relative aspect-[3/4] mb-4 overflow-hidden rounded-sm bg-gray-100">
         <Image
           src={product.images[0].url}
           alt={product.name}
           fill
-          className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300" />
         
-        {/* Quick Actions */}
-        <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {/* Badges */}
+        {product.compareAtPrice && (
+          <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">
+            -{Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)}%
+          </span>
+        )}
+
+        {/* Quick Actions Overlay */}
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
           <button
             onClick={handleAddToWishlist}
-            className="p-2 bg-white rounded-full shadow hover:bg-gray-100 transition-colors"
+            className="p-3 bg-white text-gray-900 rounded-full hover:bg-primary hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300 shadow-lg"
             aria-label="Add to wishlist"
           >
-            <FaHeart className="text-gray-600" />
+            <FaHeart size={16} />
           </button>
           <button
             onClick={handleAddToCart}
-            className="p-2 bg-white rounded-full shadow hover:bg-gray-100 transition-colors"
+            className="p-3 bg-white text-gray-900 rounded-full hover:bg-primary hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300 delay-75 shadow-lg"
             aria-label="Add to cart"
           >
-            <FaShoppingCart className="text-gray-600" />
+            <FaShoppingBag size={16} />
           </button>
+          <Link
+            href={`/shop/product/${product.id}`}
+            className="p-3 bg-white text-gray-900 rounded-full hover:bg-primary hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300 delay-150 shadow-lg"
+            aria-label="View details"
+          >
+            <FaEye size={16} />
+          </Link>
         </div>
       </div>
 
       {/* Product Info */}
-      <Link href={`/shop/product/${product.id}`}>
-        <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 transition-colors">
-          {product.name}
-        </h3>
-      </Link>
-      <p className="text-sm text-gray-600 mb-2">{product.category}</p>
-      <div className="flex items-center gap-2">
-        <span className="text-lg font-bold text-blue-600">
-          {formatPrice(product.price)}
-        </span>
-        {product.compareAtPrice && (
-          <span className="text-sm text-gray-500 line-through">
-            {formatPrice(product.compareAtPrice)}
+      <div className="text-center">
+        <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{product.category}</p>
+        <Link href={`/shop/product/${product.id}`}>
+          <h3 className="text-base font-medium text-gray-900 mb-1 hover:text-primary transition-colors line-clamp-1">
+            {product.name}
+          </h3>
+        </Link>
+        <div className="flex items-center justify-center gap-2">
+          {product.compareAtPrice && (
+            <span className="text-sm text-gray-400 line-through">
+              {formatPrice(product.compareAtPrice)}
+            </span>
+          )}
+          <span className="text-sm font-semibold text-primary">
+            {formatPrice(product.price)}
           </span>
-        )}
+        </div>
       </div>
     </div>
   );

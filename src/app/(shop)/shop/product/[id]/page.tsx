@@ -6,11 +6,10 @@ import { useCart } from "../../../../../hooks/useCart";
 import { FaHeart, FaShoppingCart, FaStar } from "react-icons/fa";
 import { formatPrice } from "../../../../../lib/utils/index";
 import toast from "react-hot-toast";
+import { Params } from "next/dist/server/request/params";
 
 interface ProductPageProps {
-  params: {
-    id: string;
-  };
+  params: Params;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
