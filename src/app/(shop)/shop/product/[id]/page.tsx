@@ -1,30 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import Image from "next/image";
 import { useCart } from "../../../../../hooks/useCart";
 import { FaHeart, FaShoppingCart, FaStar } from "react-icons/fa";
 import { formatPrice } from "../../../../../lib/utils/index";
 import toast from "react-hot-toast";
-import { Params } from "next/dist/server/request/params";
 
 interface ProductPageProps {
-  params: Params;
+  params: Promise<{ id: string }>;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const [selectedImage, setSelectedImage] = useState(0);
+  const { id } = use(params);
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState<any>(null);
 
-  useState(() => {
+  useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`/api/products/${params.id}`);
+        const response = await fetch(`/api/products/${id}`);
         const data = await response.json();
-        setProduct(data);
+        setProduct(data.product);
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
@@ -33,7 +32,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     };
 
     fetchProduct();
-  });
+  }, [id]);
 
   if (loading) {
     return <div className="container mx-auto px-4 py-8">Loading...</div>;
@@ -59,60 +58,35 @@ export default function ProductPage({ params }: ProductPageProps) {
         <div>
           <div className="relative aspect-square mb-4">
             <Image
-              src={product.images[selectedImage].url}
+              src={product.image || "/placeholder.png"}
               alt={product.name}
               fill
               className="object-cover rounded-lg"
             />
-          </div>
-          <div className="grid grid-cols-4 gap-2">
-            {product.images.map((image: any, index: number) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(index)}
-                className={`relative aspect-square rounded-lg overflow-hidden border-2 ${
-                  selectedImage === index ? "border-blue-500" : "border-transparent"
-                }`}
-              >
-                <Image
-                  src={image.url}
-                  alt={`${product.name} ${index + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              </button>
-            ))}
           </div>
         </div>
 
         {/* Product Info */}
         <div>
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          
-          {/* Price */}
           <div className="mb-6">
             <span className="text-2xl font-bold text-blue-600">
               {formatPrice(product.price)}
             </span>
-            {product.compareAtPrice && (
-              <span className="ml-2 text-gray-500 line-through">
-                {formatPrice(product.compareAtPrice)}
-              </span>
-            )}
           </div>
 
-          {/* Rating */}
+          {/* Rating - Placeholder as it's not in the model */}
           <div className="flex items-center mb-6">
             <div className="flex text-yellow-400">
               {[...Array(5)].map((_, i) => (
                 <FaStar
                   key={i}
-                  className={i < Math.floor(product.ratings.average) ? "text-yellow-400" : "text-gray-300"}
+                  className="text-gray-300"
                 />
               ))}
             </div>
             <span className="ml-2 text-gray-600">
-              ({product.ratings.count} reviews)
+              (0 reviews)
             </span>
           </div>
 
@@ -163,21 +137,6 @@ export default function ProductPage({ params }: ProductPageProps) {
               <FaHeart />
             </button>
           </div>
-
-          {/* Specifications */}
-          {product.specifications && product.specifications.length > 0 && (
-            <div className="mt-8">
-              <h2 className="text-xl font-semibold mb-4">Specifications</h2>
-              <div className="grid grid-cols-2 gap-4">
-                {product.specifications.map((spec: any) => (
-                  <div key={spec.name}>
-                    <span className="font-medium">{spec.name}:</span>{" "}
-                    <span className="text-gray-600">{spec.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

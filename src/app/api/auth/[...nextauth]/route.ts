@@ -1,14 +1,11 @@
 import NextAuth, { NextAuthOptions, User as NextAuthUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import {connectDB} from "../../../../lib/db";
-import UserModel from "../../../../models/User"; // renamed to avoid confusion between types and model
+import {connectDB} from "@/lib/db";
+import UserModel from "@/models/User"; // renamed to avoid confusion between types and model
 
 connectDB();
 
-// -----------------------------
-// 1️⃣ Define TypeScript types
-// -----------------------------
 interface AppUser {
   _id: string;
   name: string;
@@ -22,9 +19,6 @@ interface Credentials {
   password: string;
 }
 
-// -----------------------------
-// 2️⃣ Define NextAuth config
-// -----------------------------
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -46,7 +40,6 @@ export const authOptions: NextAuthOptions = {
         const isValid = await bcrypt.compare(credentials.password, user.password || "");
         if (!isValid) throw new Error("Invalid password");
 
-        // Returned object becomes `user` in jwt/session callbacks
         return {
           id: user._id.toString(),
           name: user.name,
@@ -78,7 +71,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   pages: {
-    signIn: "/(auth)/login",
+    signIn: "/login",
   },
 
   secret: process.env.NEXTAUTH_SECRET,

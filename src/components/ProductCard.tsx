@@ -35,7 +35,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group relative">
       {/* Product Image */}
-      <div className="relative aspect-[3/4] mb-4 overflow-hidden rounded-sm bg-gray-100">
+      <div className="relative aspect-3/4 mb-4 overflow-hidden rounded-sm bg-gray-100">
         <Image
           src={product.images[0].url}
           alt={product.name}

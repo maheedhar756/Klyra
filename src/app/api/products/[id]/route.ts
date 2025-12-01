@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB } from "../../../../lib/db";
-import { isAdmin } from "../../../../lib/auth";
-import Product from "../../../../models/Product";
+import { connectDB } from "@/lib/db";
+import { isAdmin } from "@/lib/auth";
+import Product from "@/models/Product";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }){
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }){
   try {
+    const { id } = await params;
     await connectDB();
-    const product = await Product.findById(params.id);
+    const product = await Product.findById(id);
     if(!product) return NextResponse.json({ error: "Product not found" }, { status: 404 });
 
     return NextResponse.json({ product });
@@ -16,15 +17,16 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }){
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }){
   try {
     if(!isAdmin()){
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
     }
 
+    const { id } = await params;
     const { name, price, image, description, category, stock } = await req.json();
     await connectDB();
-    const product = await Product.findById(params.id);
+    const product = await Product.findById(id);
     if(!product) return NextResponse.json({ error: "Product not found" }, { status: 404 });
     product.name = name;
     product.price = price;
@@ -41,14 +43,15 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     if(!isAdmin()){
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
     }
 
+    const { id } = await params;
     await connectDB();
-    const deleted = await Product.findByIdAndDelete(params.id);
+    const deleted = await Product.findByIdAndDelete(id);
     if(!deleted) return NextResponse.json({ error: "Product not found" }, { status: 404 });
 
     return NextResponse.json({ message: "Product deleted successfuly" }, { status: 200 });

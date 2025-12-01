@@ -50,7 +50,7 @@ export default function HeroSlider() {
             className="object-cover opacity-80"
             priority={index === 0}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent">
+          <div className="absolute inset-0 bg-linear-gradient-to-r from-black/60 to-transparent">
             <div className="container mx-auto h-full flex items-center px-4">
               <div className="max-w-xl text-white pl-4 md:pl-12 animate-in slide-in-from-left-10 duration-700 fade-in">
                 <span className="inline-block py-1 px-3 border border-white/30 rounded-full text-sm uppercase tracking-wider mb-6 backdrop-blur-sm">
