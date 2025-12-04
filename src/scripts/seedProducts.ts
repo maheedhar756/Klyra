@@ -7,8 +7,8 @@ import User from '@/models/User';
 const products = [
   {
     name: "Luxury Leather Handbag",
-    price: 1299.99,
-    image: "/images/products/luxury_handbag.png",
+    price: 1299.90,
+    image: "/images/products/luxury_handbag.jpg",
     description: "Handcrafted from the finest Italian leather, this handbag features a timeless design with gold-tone hardware. Spacious interior with multiple compartments.",
     category: "Accessories",
     stock: 15
@@ -16,7 +16,7 @@ const products = [
   {
     name: "Premium Chronograph Watch",
     price: 899.50,
-    image: "/images/products/premium_watch.png",
+    image: "/images/products/premium_watch.jpg",
     description: "A masterpiece of engineering, this chronograph watch features a sapphire crystal face, genuine leather strap, and precise Swiss movement.",
     category: "Accessories",
     stock: 8
@@ -24,7 +24,7 @@ const products = [
   {
     name: "Designer Gold Sunglasses",
     price: 349.00,
-    image: "/images/products/designer_sunglasses.png",
+    image: "/images/products/designer_sunglasses.jpg",
     description: "Elevate your style with these designer sunglasses. Featuring UV400 protection and a lightweight gold-tone frame for all-day comfort.",
     category: "Accessories",
     stock: 25
@@ -32,7 +32,7 @@ const products = [
   {
     name: "Classic Leather Oxfords",
     price: 249.99,
-    image: "/images/products/leather_shoes.png",
+    image: "/images/products/leather_shoes.jpg",
     description: "Essential for the modern gentleman, these Oxford shoes are crafted from full-grain leather with a durable leather sole. Perfect for formal occasions.",
     category: "Footwear",
     stock: 40

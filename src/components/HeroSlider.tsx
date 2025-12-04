@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +7,7 @@ import { FaArrowRight } from 'react-icons/fa';
 const slides = [
   {
     id: 1,
-    image: '/images/hero/slide1.jpg',
+    image: '/images/hero/sli1.png',
     title: 'Summer Elegance',
     subtitle: 'Discover the new collection',
     buttonText: 'Shop Now',
@@ -16,8 +15,16 @@ const slides = [
   },
   {
     id: 2,
-    image: '/images/hero/slide2.jpg',
+    image: '/images/hero/sli2.png',
     title: 'Modern Classics',
+    subtitle: 'Timeless pieces for every occasion',
+    buttonText: 'View Lookbook',
+    buttonLink: '/shop/products'
+  },
+  {
+    id: 3,
+    image: '/images/hero/sli3.png',
+    title: 'New Arrivals',
     subtitle: 'Timeless pieces for every occasion',
     buttonText: 'View Lookbook',
     buttonLink: '/shop/products'
@@ -30,7 +37,7 @@ export default function HeroSlider() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
@@ -80,7 +87,7 @@ export default function HeroSlider() {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-12 h-1 rounded-full transition-all duration-300 ${
+            className={`w-5 h-5 rounded-full transition-all duration-300 ${
               index === currentSlide ? 'bg-white' : 'bg-white/30 hover:bg-white/50'
             }`}
             aria-label={`Go to slide ${index + 1}`}

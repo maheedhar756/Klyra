@@ -57,7 +57,6 @@ export default function ShopPage() {
 
   const sortedProducts = sortProducts(filteredProducts, filters.sort);
 
-  // ensure ProductGrid is treated as a React component that accepts a products prop
   const TypedProductGrid = ProductGrid as unknown as React.ComponentType<{ products: any[] }>;
 
   return (
