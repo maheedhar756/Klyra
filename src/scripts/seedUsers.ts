@@ -22,7 +22,7 @@ async function seedUsers() {
         password: hashedPassword,
         role: 'admin'
       });
-      console.log('✅ Admin user created: admin@klyra.com / admin123');
+      console.log('Admin user created: admin@klyra.com / admin123');
     }
 
     // Check if test user already exists

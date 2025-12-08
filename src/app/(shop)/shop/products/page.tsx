@@ -45,7 +45,9 @@ export default function ShopPage() {
     fetchProducts();
   }, []);
 
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
@@ -57,7 +59,9 @@ export default function ShopPage() {
 
   const sortedProducts = sortProducts(filteredProducts, filters.sort);
 
-  const TypedProductGrid = ProductGrid as unknown as React.ComponentType<{ products: any[] }>;
+  const TypedProductGrid = ProductGrid as unknown as React.ComponentType<{
+    products: any[];
+  }>;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -81,7 +85,9 @@ export default function ShopPage() {
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Sidebar */}
-        <aside className={`lg:w-1/4 ${showFilters ? 'block' : 'hidden lg:block'}`}>
+        <aside
+          className={`lg:w-1/4 ${showFilters ? "block" : "hidden lg:block"}`}
+        >
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -151,16 +157,20 @@ export default function ShopPage() {
               <div className="pt-4 border-t">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium">Active Filters</span>
-                  {(filters.category !== "All" || filters.minPrice || filters.maxPrice) && (
+                  {(filters.category !== "All" ||
+                    filters.minPrice ||
+                    filters.maxPrice) && (
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => setFilters({
-                        category: "All",
-                        minPrice: "",
-                        maxPrice: "",
-                        sort: "featured",
-                      })}
+                      onClick={() =>
+                        setFilters({
+                          category: "All",
+                          minPrice: "",
+                          maxPrice: "",
+                          sort: "featured",
+                        })
+                      }
                     >
                       Clear All
                     </Button>
@@ -193,7 +203,9 @@ export default function ShopPage() {
             <>
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-sm text-muted-foreground">
-                  Showing <span className="font-medium">{sortedProducts.length}</span> products
+                  Showing{" "}
+                  <span className="font-medium">{sortedProducts.length}</span>{" "}
+                  products
                 </p>
               </div>
               <TypedProductGrid products={sortedProducts} />

@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+import { FacebookIcon } from "../icons/FacebookIcon";
+import { TwitterIcon } from "../icons/TwitterIcon";
+import { InstagramIcon } from "../icons/InstagramIcon";
 
 export default function Footer() {
   return (
@@ -81,13 +84,13 @@ export default function Footer() {
             </form>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-400 hover:text-white">
-                <FaFacebook size={24} />
+                <FacebookIcon size={24} />
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white">
-                <FaTwitter size={24} />
+                <TwitterIcon size={24} />
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white">
-                <FaInstagram size={24} />
+                <InstagramIcon size={24} />
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white">
                 <FaYoutube size={24} />

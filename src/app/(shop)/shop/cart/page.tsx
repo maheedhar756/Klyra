@@ -6,7 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaShoppingBag } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
@@ -39,9 +45,7 @@ export default function CartPage() {
               Looks like you haven't added any items to your cart yet.
             </p>
             <Button asChild size="lg">
-              <Link href="/shop/products">
-                Start Shopping
-              </Link>
+              <Link href="/shop/products">Start Shopping</Link>
             </Button>
           </CardContent>
         </Card>
@@ -74,7 +78,7 @@ export default function CartPage() {
                   {/* Product Image */}
                   <div className="relative w-24 aspect-square rounded-md overflow-hidden">
                     <Image
-                      src={item.images?.[0]?.url || '/placeholder.png'}
+                      src={item.images?.[0]?.url || "/placeholder.png"}
                       alt={item.name}
                       fill
                       className="object-cover"
@@ -90,14 +94,17 @@ export default function CartPage() {
                       {item.name}
                     </Link>
                     <Badge variant="secondary">{item.category}</Badge>
-                    
+
                     <div className="flex items-center gap-4">
                       <div className="flex items-center border rounded-md">
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() =>
-                            updateQuantity(item.id, Math.max(1, item.quantity - 1))
+                            updateQuantity(
+                              item.id,
+                              Math.max(1, item.quantity - 1)
+                            )
                           }
                           className="px-3"
                         >
@@ -155,9 +162,7 @@ export default function CartPage() {
           </Card>
 
           <Button variant="outline" asChild className="w-full md:w-auto">
-            <Link href="/shop/products">
-              Continue Shopping
-            </Link>
+            <Link href="/shop/products">Continue Shopping</Link>
           </Button>
         </div>
 
@@ -186,7 +191,9 @@ export default function CartPage() {
               <div className="border-t pt-4">
                 <div className="flex justify-between mb-4">
                   <span className="text-lg font-semibold">Total</span>
-                  <span className="text-lg font-semibold">{formatPrice(total)}</span>
+                  <span className="text-lg font-semibold">
+                    {formatPrice(total)}
+                  </span>
                 </div>
               </div>
             </CardContent>

@@ -11,11 +11,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="corporate">
+    <html lang="en">
       <body>
         <NextAuthProvider>
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          <main className="min-h-screen pt-18">{children}</main>
           <Footer />
         </NextAuthProvider>
       </body>
