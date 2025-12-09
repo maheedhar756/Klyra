@@ -2,9 +2,9 @@
 
 import { useState, useEffect, use } from "react";
 import Image from "next/image";
-import { useCart } from "../../../../../hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 import { FaHeart, FaShoppingCart, FaStar } from "react-icons/fa";
-import { formatPrice } from "../../../../../lib/utils/index";
+import { formatPrice } from "@/lib/utils/index";
 import toast from "react-hot-toast";
 
 interface ProductPageProps {
@@ -79,15 +79,10 @@ export default function ProductPage({ params }: ProductPageProps) {
           <div className="flex items-center mb-6">
             <div className="flex text-yellow-400">
               {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  className="text-gray-300"
-                />
+                <FaStar key={i} className="text-gray-300" />
               ))}
             </div>
-            <span className="ml-2 text-gray-600">
-              (0 reviews)
-            </span>
+            <span className="ml-2 text-gray-600">(0 reviews)</span>
           </div>
 
           {/* Description */}
@@ -95,9 +90,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
           {/* Quantity */}
           <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">
-              Quantity
-            </label>
+            <label className="block text-sm font-medium mb-2">Quantity</label>
             <div className="flex items-center">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -109,7 +102,9 @@ export default function ProductPage({ params }: ProductPageProps) {
                 type="number"
                 min="1"
                 value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value)))}
+                onChange={(e) =>
+                  setQuantity(Math.max(1, parseInt(e.target.value)))
+                }
                 className="w-16 px-3 py-1 border-t border-b text-center"
               />
               <button

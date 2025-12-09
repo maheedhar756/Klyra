@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ProductGrid from "../../../../components/ProductGrid";
+import ProductGrid from "@/components/ProductGrid";
 import { FaFilter } from "react-icons/fa";
-import { filterProducts, sortProducts } from "../../../../lib/utils/index";
+import { filterProducts, sortProducts } from "@/lib/utils/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

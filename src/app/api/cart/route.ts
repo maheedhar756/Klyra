@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { connectDB } from "../../../lib/db";
-import Cart from "../../../models/Cart";
+import { connectDB } from "@/lib/db";
+import Cart from "@/models/Cart";
 import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET(req: Request) {

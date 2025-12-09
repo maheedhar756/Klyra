@@ -1,7 +1,7 @@
 "use client";
 
-import { useCart } from "../../../../hooks/useCart";
-import { formatPrice } from "../../../../lib/utils/index";
+import { useCart } from "@/hooks/useCart";
+import { formatPrice } from "@/lib/utils/index";
 import Image from "next/image";
 import Link from "next/link";
 import { FaTrash, FaShoppingBag } from "react-icons/fa";
