@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaYoutube } from "react-icons/fa";
+import { Youtube } from "lucide-react";
 import { FacebookIcon } from "../icons/FacebookIcon";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { InstagramIcon } from "../icons/InstagramIcon";
@@ -27,19 +27,24 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="hover:text-gray-300">About Us</Link>
+                <Link href="/about" className="hover:text-gray-300">
+                  About Us
+                </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-gray-300">FAQ</Link>
+                <Link href="/faq" className="hover:text-gray-300">
+                  FAQ
+                </Link>
               </li>
               <li>
-                <Link href="/help" className="hover:text-gray-300">Help</Link>
+                <Link href="/help" className="hover:text-gray-300">
+                  Help
+                </Link>
               </li>
               <li>
-                <Link href="/account" className="hover:text-gray-300">My Account</Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-gray-300">Blog</Link>
+                <Link href="/account" className="hover:text-gray-300">
+                  My Account
+                </Link>
               </li>
             </ul>
           </div>
@@ -49,19 +54,35 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4">Categories</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/category/clothes" className="hover:text-gray-300">Clothes</Link>
+                <Link href="/category/clothes" className="hover:text-gray-300">
+                  Clothes
+                </Link>
               </li>
               <li>
-                <Link href="/category/electronics" className="hover:text-gray-300">Electronics</Link>
+                <Link
+                  href="/category/electronics"
+                  className="hover:text-gray-300"
+                >
+                  Electronics
+                </Link>
               </li>
               <li>
-                <Link href="/category/furniture" className="hover:text-gray-300">Furniture</Link>
+                <Link
+                  href="/category/furniture"
+                  className="hover:text-gray-300"
+                >
+                  Furniture
+                </Link>
               </li>
               <li>
-                <Link href="/category/shoes" className="hover:text-gray-300">Shoes</Link>
+                <Link href="/category/shoes" className="hover:text-gray-300">
+                  Shoes
+                </Link>
               </li>
               <li>
-                <Link href="/category/watches" className="hover:text-gray-300">Watches</Link>
+                <Link href="/category/watches" className="hover:text-gray-300">
+                  Watches
+                </Link>
               </li>
             </ul>
           </div>
@@ -93,7 +114,7 @@ export default function Footer() {
                 <InstagramIcon size={24} />
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white">
-                <FaYoutube size={24} />
+                <Youtube size={24} />
               </Link>
             </div>
           </div>
